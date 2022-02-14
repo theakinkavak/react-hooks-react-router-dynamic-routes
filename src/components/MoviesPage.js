@@ -1,11 +1,23 @@
 import React from "react";
-import { Route } from "react-router-dom";
+// Import the custom "useRouteMatch" hook from React Router
+import { Route, useRouteMatch } from "react-router-dom";
 import MoviesList from "./MoviesList";
+import MovieShow from "./MovieShow";
 
 function MoviesPage({ movies }) {
+
+  // useRouteMatch return a special object with info
+  // about the currently matched route
+  const match = useRouteMatch();
+  console.log(match.url);
+
   return (
     <div>
       <MoviesList movies={movies} />
+      <Route path={`${match.url}/:movieId`}>
+        {/* adding the movies object as a prop to MovieShow*/}
+        <MovieShow movies={movies} />
+      </Route>
     </div>
   );
 }
